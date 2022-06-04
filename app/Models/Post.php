@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Sortable;
 
     /**
      * The attributes that aren't mass assignable.
@@ -27,12 +27,6 @@ class Post extends Model
     protected $casts = [
         'publication_date' => 'datetime',
     ];
-
-    public function scopeSortColumn(Builder $query, $column, $order ="desc")
-    {
-        return $query->orderBy($column, $order);
-    }
-
 
     /**
      * owner of post
