@@ -70,7 +70,8 @@ class PostController extends Controller
             
             $data = $request->validated() + ['user_id' => auth()->id()];
             
-            StoreBlogPostJob::dispatch($data)->delay(now()->addSeconds(10));
+            StoreBlogPostJob::dispatch($data)
+                ->onQueue('high');
 
             return redirect()->route('posts.index')
                 ->with('success', 'Your post is processing and will be published in a bit');
