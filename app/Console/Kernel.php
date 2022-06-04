@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('pull:feed')->everyFourMinutes()
+        $schedule->command('pull:feed')->hourly()
             ->runInBackground()
             ->onSuccess(fn() => Log::notice('External blog successfully pulled'))
             ->onFailure(fn() => Log::error('Error pulling blog data'));
